@@ -33,3 +33,19 @@ func TestStructCheck2(t *testing.T) {
 		t.Error("error tree value")
 	}
 }
+
+func TestStructCheck3(t *testing.T) {
+	tree := Tree{value: int64(1)}
+	if tree.parent != nil {
+		t.Error("error tree parent")
+	}
+	if tree.right != nil {
+		t.Error("error tree right")
+	}
+	if tree.left != nil {
+		t.Error("error tree left")
+	}
+	if tree.value.(int64) != 1 {
+		t.Error("error tree value")
+	}
+}
