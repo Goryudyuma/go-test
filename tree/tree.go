@@ -28,7 +28,7 @@ func (tree *Tree) MarshalJSON() ([]byte, error) {
 		if len(ret) != 1 {
 			ret = append(ret, ',')
 		}
-		ret = append(ret, []byte("\"left\":")...)
+		ret = append(ret, []byte(`"left":`)...)
 		ret = append(ret, leftJSON...)
 	}
 	if tree.right != nil {
@@ -39,7 +39,7 @@ func (tree *Tree) MarshalJSON() ([]byte, error) {
 		if len(ret) != 1 {
 			ret = append(ret, ',')
 		}
-		ret = append(ret, []byte("\"right\":")...)
+		ret = append(ret, []byte(`"right":`)...)
 		ret = append(ret, rightJSON...)
 	}
 	if tree.value != nil {
@@ -50,7 +50,7 @@ func (tree *Tree) MarshalJSON() ([]byte, error) {
 		if len(ret) != 1 {
 			ret = append(ret, ',')
 		}
-		ret = append(ret, []byte("\"value\":")...)
+		ret = append(ret, []byte(`"value":`)...)
 		ret = append(ret, valueJSON...)
 	}
 
