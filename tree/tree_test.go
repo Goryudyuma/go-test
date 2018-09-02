@@ -2,6 +2,8 @@ package tree
 
 import (
 	"encoding/json"
+	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -59,7 +61,11 @@ func TestMarshalJSONEmpty(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if string(res) != `{}` {
+	eq, err := AreEqualJSON(string(res), `{}`)
+	if err != nil {
+		t.Error(err)
+	}
+	if !eq {
 		t.Error("Error empty Tree to JSON")
 	}
 }
@@ -70,7 +76,11 @@ func TestMarshalJSONValueIsInt(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if string(res) != `{"value":1}` {
+	eq, err := AreEqualJSON(string(res), `{"value":1}`)
+	if err != nil {
+		t.Error(err)
+	}
+	if !eq {
 		t.Errorf("Error JSON %v", string(res))
 	}
 }
@@ -81,7 +91,28 @@ func TestMarshalJSONExistLeft(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if string(res) != `{"left":{}}` {
+	eq, err := AreEqualJSON(string(res), `{"left":{}}`)
+	if err != nil {
+		t.Error(err)
+	}
+	if !eq {
 		t.Errorf("Error JSON %v", string(res))
 	}
+}
+
+func AreEqualJSON(s1, s2 string) (bool, error) {
+	var o1 interface{}
+	var o2 interface{}
+
+	var err error
+	err = json.Unmarshal([]byte(s1), &o1)
+	if err != nil {
+		return false, fmt.Errorf("Error mashalling string 1 :: %s", err.Error())
+	}
+	err = json.Unmarshal([]byte(s2), &o2)
+	if err != nil {
+		return false, fmt.Errorf("Error mashalling string 2 :: %s", err.Error())
+	}
+
+	return reflect.DeepEqual(o1, o2), nil
 }
