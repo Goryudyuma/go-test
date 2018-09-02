@@ -18,7 +18,7 @@ func TestStructCheck1(t *testing.T) {
 	}
 }
 
-func TestStructCheck2(t *testing.T) {
+func TestStructCheckValueIsInt(t *testing.T) {
 	tree := Tree{value: 1}
 	if tree.parent != nil {
 		t.Error("error tree parent")
@@ -34,7 +34,7 @@ func TestStructCheck2(t *testing.T) {
 	}
 }
 
-func TestStructCheck3(t *testing.T) {
+func TestStructCheckValueIsInt64(t *testing.T) {
 	tree := Tree{value: int64(1)}
 	if tree.parent != nil {
 		t.Error("error tree parent")
