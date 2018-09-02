@@ -59,7 +59,7 @@ func TestMarshalJSONEmpty(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if string(res) != "{}" {
+	if string(res) != `{}` {
 		t.Error("Error empty Tree to JSON")
 	}
 }
@@ -70,7 +70,7 @@ func TestMarshalJSONValueIsInt(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if string(res) != "{\"value\":1}" {
+	if string(res) != `{"value":1}` {
 		t.Errorf("Error JSON %v", string(res))
 	}
 }
@@ -81,7 +81,7 @@ func TestMarshalJSONExistLeft(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if string(res) != "{\"left\":{}}" {
+	if string(res) != `{"left":{}}` {
 		t.Errorf("Error JSON %v", string(res))
 	}
 }
