@@ -1,9 +1,12 @@
 package tree
 
-import "testing"
+import (
+	"encoding/json"
+	"testing"
+)
 
 func TestStructCheck1(t *testing.T) {
-	tree := Tree{}
+	tree := &Tree{}
 	if tree.parent != nil {
 		t.Error("error tree parent")
 	}
@@ -19,7 +22,7 @@ func TestStructCheck1(t *testing.T) {
 }
 
 func TestStructCheckValueIsInt(t *testing.T) {
-	tree := Tree{value: 1}
+	tree := &Tree{value: 1}
 	if tree.parent != nil {
 		t.Error("error tree parent")
 	}
@@ -35,7 +38,7 @@ func TestStructCheckValueIsInt(t *testing.T) {
 }
 
 func TestStructCheckValueIsInt64(t *testing.T) {
-	tree := Tree{value: int64(1)}
+	tree := &Tree{value: int64(1)}
 	if tree.parent != nil {
 		t.Error("error tree parent")
 	}
@@ -47,5 +50,38 @@ func TestStructCheckValueIsInt64(t *testing.T) {
 	}
 	if tree.value.(int64) != 1 {
 		t.Error("error tree value")
+	}
+}
+
+func TestMarshalJSONEmpty(t *testing.T) {
+	tree := &Tree{}
+	res, err := json.Marshal(tree)
+	if err != nil {
+		t.Error(err)
+	}
+	if string(res) != "{}" {
+		t.Error("Error empty Tree to JSON")
+	}
+}
+
+func TestMarshalJSONValueIsInt(t *testing.T) {
+	tree := &Tree{value: 1}
+	res, err := json.Marshal(tree)
+	if err != nil {
+		t.Error(err)
+	}
+	if string(res) != "{\"value\":1}" {
+		t.Errorf("Error JSON %v", string(res))
+	}
+}
+
+func TestMarshalJSONExistLeft(t *testing.T) {
+	tree := &Tree{left: &Tree{}}
+	res, err := json.Marshal(tree)
+	if err != nil {
+		t.Error(err)
+	}
+	if string(res) != "{\"left\":{}}" {
+		t.Errorf("Error JSON %v", string(res))
 	}
 }
