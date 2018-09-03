@@ -85,6 +85,36 @@ func TestMarshalJSONValueIsInt(t *testing.T) {
 	}
 }
 
+func TestMarshalJSONValueIsInt64(t *testing.T) {
+	tree := &Tree{value: int64(1)}
+	res, err := json.Marshal(tree)
+	if err != nil {
+		t.Error(err)
+	}
+	eq, err := AreEqualJSON(string(res), `{"value":1}`)
+	if err != nil {
+		t.Error(err)
+	}
+	if !eq {
+		t.Errorf("Error JSON %v", string(res))
+	}
+}
+
+func TestMarshalJSONValueIsString(t *testing.T) {
+	tree := &Tree{value: "abc"}
+	res, err := json.Marshal(tree)
+	if err != nil {
+		t.Error(err)
+	}
+	eq, err := AreEqualJSON(string(res), `{"value":"abc"}`)
+	if err != nil {
+		t.Error(err)
+	}
+	if !eq {
+		t.Errorf("Error JSON %v", string(res))
+	}
+}
+
 func TestMarshalJSONExistLeft(t *testing.T) {
 	tree := &Tree{left: &Tree{}}
 	res, err := json.Marshal(tree)
