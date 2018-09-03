@@ -14,6 +14,17 @@ type Tree struct {
 
 // UnmarshalJSON
 func (tree *Tree) UnmarshalJSON(data []byte) error {
+	var v map[string]interface{}
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	if v["right"] != nil {
+		tree.right = v["right"].(*Tree)
+	}
+	if v["left"] != nil {
+		tree.left = v["left"].(*Tree)
+	}
+	tree.value = v["value"]
 	return nil
 }
 

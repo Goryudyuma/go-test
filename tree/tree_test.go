@@ -130,6 +130,46 @@ func TestMarshalJSONExistLeft(t *testing.T) {
 	}
 }
 
+func TestUnmarshalJSONEmpty(t *testing.T) {
+	var tree *Tree
+	err := json.Unmarshal([]byte(`{}`), &tree)
+	if err != nil {
+		t.Error(err)
+	}
+	if tree.parent != nil {
+		t.Error("error tree parent")
+	}
+	if tree.right != nil {
+		t.Error("error tree right")
+	}
+	if tree.left != nil {
+		t.Error("error tree left")
+	}
+	if tree.value != nil {
+		t.Error("error tree value")
+	}
+}
+
+func TestUnmarshalJSONValueIsInt(t *testing.T) {
+	var tree *Tree
+	err := json.Unmarshal([]byte(`{"value":1}`), &tree)
+	if err != nil {
+		t.Error(err)
+	}
+	if tree.parent != nil {
+		t.Error("error tree parent")
+	}
+	if tree.right != nil {
+		t.Error("error tree right")
+	}
+	if tree.left != nil {
+		t.Error("error tree left")
+	}
+	if tree.value.(float64) != float64(1) {
+		t.Error("error tree value")
+	}
+}
+
 func AreEqualJSON(s1, s2 string) (bool, error) {
 	var o1 interface{}
 	var o2 interface{}
