@@ -170,7 +170,7 @@ func TestUnmarshalJSONValueIsInt(t *testing.T) {
 	}
 }
 
-func TestUnmarshalJSONExistLeftTree(t *testing.T) {
+func TestUnmarshalJSONExistLeftValue(t *testing.T) {
 	var tree *Tree
 	err := json.Unmarshal([]byte(`{"left":{"value":1}}`), &tree)
 	if err != nil {
@@ -178,6 +178,17 @@ func TestUnmarshalJSONExistLeftTree(t *testing.T) {
 	}
 	if tree.left.value != float64(1) {
 		t.Error("error tree left value")
+	}
+}
+
+func TestUnmarshalJSONExistLeftLeftValue(t *testing.T) {
+	var tree *Tree
+	err := json.Unmarshal([]byte(`{"left":{"left":{"value":1}}}`), &tree)
+	if err != nil {
+		t.Error(err)
+	}
+	if tree.left.left.value != float64(1) {
+		t.Error("error tree left left value")
 	}
 }
 
