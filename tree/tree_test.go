@@ -192,6 +192,17 @@ func TestUnmarshalJSONExistLeftLeftValue(t *testing.T) {
 	}
 }
 
+func TestUnmarshalJSONExistLeftLeftRightValue(t *testing.T) {
+	var tree *Tree
+	err := json.Unmarshal([]byte(`{"left":{"left":{"right":{"value":1}}}}`), &tree)
+	if err != nil {
+		t.Error(err)
+	}
+	if tree.left.left.right.value != float64(1) {
+		t.Error("error tree left left value")
+	}
+}
+
 func AreEqualJSON(s1, s2 string) (bool, error) {
 	var o1 interface{}
 	var o2 interface{}
