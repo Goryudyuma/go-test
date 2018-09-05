@@ -214,6 +214,27 @@ func TestUnmarshalJSONExistRightRightLeftValue(t *testing.T) {
 	}
 }
 
+func TestEqualJSON(t *testing.T) {
+	var testCase string
+	testCase = `{"right":{"right":{"left":{"value":1}}}}`
+	var tree *Tree
+	err := json.Unmarshal([]byte(testCase), &tree)
+	if err != nil {
+		t.Error(err)
+	}
+	res, err := json.Marshal(tree)
+	if err != nil {
+		t.Error(err)
+	}
+	eq, err := AreEqualJSON(string(res), testCase)
+	if err != nil {
+		t.Error(err)
+	}
+	if !eq {
+		t.Errorf("Error JSON %v", string(res))
+	}
+}
+
 func AreEqualJSON(s1, s2 string) (bool, error) {
 	var o1 interface{}
 	var o2 interface{}
