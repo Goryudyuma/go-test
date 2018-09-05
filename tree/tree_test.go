@@ -199,7 +199,18 @@ func TestUnmarshalJSONExistLeftLeftRightValue(t *testing.T) {
 		t.Error(err)
 	}
 	if tree.left.left.right.value != float64(1) {
-		t.Error("error tree left left value")
+		t.Error("error tree left left right value")
+	}
+}
+
+func TestUnmarshalJSONExistRightRightLeftValue(t *testing.T) {
+	var tree *Tree
+	err := json.Unmarshal([]byte(`{"right":{"right":{"left":{"value":1}}}}`), &tree)
+	if err != nil {
+		t.Error(err)
+	}
+	if tree.right.right.left.value != float64(1) {
+		t.Error("error tree right right left value")
 	}
 }
 
