@@ -218,14 +218,14 @@ func (tree *RedBlackTree) rotateRR() {
 	tree.rotate()
 }
 
-func (tree *RedBlackTree) toString() (ret string) {
+func (tree *RedBlackTree) String() (ret string) {
 	if tree == nil {
 		return ""
 	}
 	ret = "("
-	ret += tree.Left.toString()
+	ret += tree.Left.String()
 	ret += strconv.FormatInt(*tree.Value, 10)
-	ret += tree.Right.toString()
+	ret += tree.Right.String()
 
 	ret += ")"
 	return
