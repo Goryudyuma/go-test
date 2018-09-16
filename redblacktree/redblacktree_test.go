@@ -1,12 +1,15 @@
 package redblacktree
 
 import (
+	"fmt"
 	"math/rand"
 	"sort"
 	"strconv"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 func init() {
@@ -152,10 +155,28 @@ func Test11(t *testing.T) {
 	}
 }
 
+func Test13(t *testing.T) {
+	tree := new(RedBlackTree)
+	tree = tree.Push(4605201821391833555)
+	tree = tree.Push(781282587162764562)
+	tree = tree.Push(1324408774600613285)
+	tree = tree.Push(1508371146504897700)
+	tree = tree.Push(4169652878687413376)
+	tree = tree.Push(4553344659976848263)
+	tree = tree.Push(4555980653633010339)
+	tree = tree.Push(6067279116940164439)
+	tree = tree.Push(7020951801917454432)
+	r := strings.NewReplacer("(", "", ")", "")
+	if r.Replace(tree.String()) != `6052018213918335557812825871627645621324408774600613285150837114650489770041696528786874133764553344659976848263455598065363301033960672791169401644397020951801917454432` {
+		t.Errorf("%s %s\n", r.Replace(tree.String()), `6052018213918335557812825871627645621324408774600613285150837114650489770041696528786874133764553344659976848263455598065363301033960672791169401644397020951801917454432`)
+		t.Error("error anything")
+	}
+}
+
 func TestRandomData(t *testing.T) {
 	r := strings.NewReplacer("(", "", ")", "")
-	testCaseNum := 10
-	for i := 0; i < 10; i++ {
+	testCaseNum := 9
+	for i := 0; i < 10000; i++ {
 		tree := new(RedBlackTree)
 		testData := make([]int64, 0, testCaseNum)
 		for j := 0; j < testCaseNum; j++ {
@@ -174,6 +195,8 @@ func TestRandomData(t *testing.T) {
 		}
 		if r.Replace(tree.String()) != strings.Join(testDataString, "") {
 			t.Error("error anything")
+			spew.Dump(testData)
+			fmt.Println(strings.Join(testDataString, ""))
 		}
 	}
 }
