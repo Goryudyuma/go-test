@@ -143,8 +143,8 @@ func Test10(t *testing.T) {
 func Test11(t *testing.T) {
 	tree := new(RedBlackTree)
 	tree = tree.Push(3)
-	tree = tree.Push(0)
 	tree = tree.Push(2)
+	tree = tree.Push(0)
 	tree = tree.Push(1)
 	r := strings.NewReplacer("(", "", ")", "")
 	if r.Replace(tree.String()) != `0123` {
